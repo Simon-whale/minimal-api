@@ -4,7 +4,7 @@ namespace singleFileAPI.Services;
 
 public class WeatherForecastData
 {
-    private readonly string[] Summaries = new[]
+    private readonly string[] _summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot"
     };
@@ -15,7 +15,7 @@ public class WeatherForecastData
                 new WeatherForecast(
                     DateTime.Now.AddDays(i),
                     Random.Shared.Next(-20, 55),
-                    Summaries[Random.Shared.Next(Summaries.Length)]
+                    _summaries[Random.Shared.Next(_summaries.Length)]
                 ))
             .ToArray();
     }

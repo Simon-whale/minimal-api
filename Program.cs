@@ -35,4 +35,9 @@ app.MapGet("/weatherforecast", () =>
     return weatherData.GetData();
 });
 
+app.MapGet("/Health", () =>
+{
+    return true;
+});
+
 app.Run();
