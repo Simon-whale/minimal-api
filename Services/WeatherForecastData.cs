@@ -1,8 +1,9 @@
+using singleFileAPI.Interfaces;
 using singleFileAPI.Models;
 
 namespace singleFileAPI.Services;
 
-public class WeatherForecastData
+public class WeatherForecastData : IWeatherForcastData
 {
     private readonly string[] _summaries = new[]
     {

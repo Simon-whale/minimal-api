@@ -1,10 +1,12 @@
 using Microsoft.OpenApi.Models;
+using singleFileAPI.Interfaces;
 using singleFileAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddScoped<IWeatherForcastData, WeatherForecastData>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setup => setup.SwaggerDoc("v1", new OpenApiInfo()
 {
@@ -29,15 +31,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var weatherData = new WeatherForecastData();
-    return weatherData.GetData();
-});
-
-app.MapGet("/Health", () =>
-{
-    return true;
-});
+// Generate random weather data based on summaries, this is done by a service which is inject into the endpoint
+app.MapGet("/weatherforecast", (IWeatherForcastData weatherData) => weatherData.GetData());
+app.MapGet("/Health", () => true);
+app.MapPost("/OddOrEven", (int input) => input % 2 == 0 ? "Even" : "Odd");
 
 app.Run();
