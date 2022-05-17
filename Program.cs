@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using singleFileAPI.Interfaces;
 using singleFileAPI.Services;
@@ -32,7 +33,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Generate random weather data based on summaries, this is done by a service which is inject into the endpoint
-app.MapGet("/weatherforecast", (IWeatherForcastData weatherData) => weatherData.GetData());
+app.MapGet("/weatherforecast", ([FromServices] IWeatherForcastData weatherData) => weatherData.GetData());
 app.MapGet("/Health", () => true);
 app.MapPost("/OddOrEven", (int input) => input % 2 == 0 ? "Even" : "Odd");
 
